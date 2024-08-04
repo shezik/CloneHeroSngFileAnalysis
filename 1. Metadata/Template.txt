@@ -1,0 +1,139 @@
+u32 ptr = 0x00;
+
+u32 Magic @ ptr;
+ptr += sizeof(u32);
+
+u32 ChartNameSize @ ptr;
+ptr += sizeof(u32);
+u8 ChartName[ChartNameSize] @ ptr;
+ptr += sizeof(u8) * ChartNameSize;
+
+u32 MetadataCache0Size @ ptr;
+ptr += sizeof(u32);
+u8 MetadataCache0[MetadataCache0Size] @ ptr;
+ptr += sizeof(u8) * MetadataCache0Size;
+
+u32 MetadataCache1Size @ ptr;
+ptr += sizeof(u32);
+u8 MetadataCache1[MetadataCache1Size] @ ptr;
+ptr += sizeof(u8) * MetadataCache1Size;
+
+u32 MetadataCache2Size @ ptr;
+ptr += sizeof(u32);
+u8 MetadataCache2[MetadataCache2Size] @ ptr;
+ptr += sizeof(u8) * MetadataCache2Size;
+
+u32 MetadataCache3Size @ ptr;
+ptr += sizeof(u32);
+u8 MetadataCache3[MetadataCache3Size] @ ptr;
+ptr += sizeof(u8) * MetadataCache3Size;
+
+u32 MetadataCache5Size @ ptr;
+ptr += sizeof(u32);
+u8 MetadataCache5[MetadataCache5Size] @ ptr;
+ptr += sizeof(u8) * MetadataCache5Size;
+
+u32 MetadataCache4Size @ ptr;
+ptr += sizeof(u32);
+u8 MetadataCache4[MetadataCache4Size] @ ptr;
+ptr += sizeof(u8) * MetadataCache4Size;
+
+u32 LoadingPhraseSize @ ptr;
+ptr += sizeof(u32);
+u8 LoadingPhrase[LoadingPhraseSize] @ ptr;
+ptr += sizeof(u8) * LoadingPhraseSize;
+
+s8 intensities8 @ ptr;
+ptr += sizeof(u8);
+
+s8 intensities0 @ ptr;
+ptr += sizeof(u8);
+
+s8 intensities3 @ ptr;
+ptr += sizeof(u8);
+
+s8 intensities1 @ ptr;
+ptr += sizeof(u8);
+
+s8 intensities2 @ ptr;
+ptr += sizeof(u8);
+
+s8 intensities6 @ ptr;
+ptr += sizeof(u8);
+
+s8 intensities9 @ ptr;
+ptr += sizeof(u8);
+
+s8 intensities7 @ ptr;
+ptr += sizeof(u8);
+
+s8 intensities4 @ ptr;
+ptr += sizeof(u8);
+
+s8 intensities5 @ ptr;
+ptr += sizeof(u8);
+
+s8 intensities10 @ ptr;
+ptr += sizeof(u8);
+
+s8 intensities11 @ ptr;
+ptr += sizeof(u8);
+
+s32 PreviewStart @ ptr;
+ptr += sizeof(s32);
+
+u32 IconNameSize @ ptr;
+ptr += sizeof(u32);
+u8 IconName[IconNameSize] @ ptr;
+ptr += sizeof(u8) * IconNameSize;
+
+s32 PlaylistTrack @ ptr;
+ptr += sizeof(s32);
+
+s32 AlbumTrack @ ptr;
+ptr += sizeof(s32);
+
+s32 SongLength @ ptr;
+ptr += sizeof(s32);
+
+u8 SongHashLength = 0x10;
+u8 SongHash[SongHashLength] @ ptr;
+ptr += sizeof(u8) * SongHashLength;
+
+s64 MidiDataLength @ ptr;
+ptr += sizeof(s64);
+
+s32 AudioFilesCount @ ptr;
+ptr += sizeof(s32);
+
+enum SongArtworks : u8 {
+    NONE = 0,
+    BACKGROUND = 1,
+    ALBUM_ART = 2,
+    BOTH = 3
+};
+
+SongArtworks AvailableSongArtworkType @ ptr;
+ptr += sizeof(u8);
+
+s32 SongArtworksCount @ ptr;
+ptr += sizeof(s32);
+
+if (AvailableSongArtworkType == SongArtworks::ALBUM_ART || AvailableSongArtworkType == SongArtworks::BOTH) {
+    s32 SongAlbumArtSizeIndex @ ptr;
+    ptr += sizeof(s32);
+}
+
+if (AvailableSongArtworkType == SongArtworks::BACKGROUND || AvailableSongArtworkType == SongArtworks::BOTH) {
+    s32 SongBackgroundSizeIndex @ ptr;
+    ptr += sizeof(s32);
+}
+
+u64 SongArtworkSizes[SongArtworksCount] @ ptr;
+ptr += sizeof(u64) * SongArtworksCount;
+
+u64 WhatIsThisBuffer[AudioFilesCount] @ ptr;
+ptr += sizeof(u64) * AudioFilesCount;
+
+u64 AudioFileSizes[AudioFilesCount] @ ptr;
+ptr += sizeof(u64) * AudioFilesCount;

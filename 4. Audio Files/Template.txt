@@ -1,0 +1,34 @@
+enum AudioFileTrackTypes : s32 {
+    guitar = 0,
+    bass,
+    rhythm,
+    vocals,
+    vocals_1,
+    vocals_2,
+    drums,
+    drums_1,
+    drums_2,
+    drums_3,
+    drums_4,
+    keys,
+    song,
+    crowd
+};
+
+u32 ptr = 0;
+
+AudioFileTrackTypes AudioFileTrackType @ ptr;
+ptr += sizeof(s32);
+
+ptr += 4;
+
+u64 SngFileXorKeyIV1 @ ptr;
+ptr += sizeof(u64);
+u64 SngFileXorKeyIV2 @ ptr;
+ptr += sizeof(u64);
+
+s64 AudioFileSize @ ptr;
+ptr += sizeof(s64);
+
+u8 EncryptedAudioFile[AudioFileSize] @ ptr;
+ptr += sizeof(u8) * AudioFileSize;
